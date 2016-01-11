@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relative_from"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:id="@+id/textview_numberpicker_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/from"
+            />
+
+        <NumberPicker
+            android:id="@+id/numberpicker_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_numberpicker_from"
+            android:layout_centerHorizontal="true"
+            android:scrollIndicators="top|bottom"
+            />
+
+        <Button
+            android:id="@+id/button_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/numberpicker_from"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_layout_gray"
+            android:text="@string/ok"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_to"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:id="@+id/textview_numberpicker_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/to"
+            />
+
+        <NumberPicker
+            android:id="@+id/numberpicker_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_numberpicker_to"
+            android:layout_centerHorizontal="true"
+            android:scrollIndicators="top|bottom"
+            />
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/numberpicker_to"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_layout_gray"
+            android:text="@string/cancel"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".QueryBuilderActivity">
+
+<LinearLayout
+        android:id="@+id/linear_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:text="@string/show_vehicles_all"
+            android:id="@+id/textview_vehicles_all"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            />
+
+        <TextView
+            android:text="@string/show_vehicles_used"
+            android:id="@+id/textview_vehicles_used"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"/>
+
+        <TextView
+            android:text="@string/show_vehicles_new"
+            android:id="@+id/textview_vehicles_new"
+
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/menu_list"
+        android:layout_below="@id/linear_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+
+    <Button
+        android:id="@+id/main_searchbutton"
+        android:text="@string/search"
+        android:background="@drawable/button_layout"
+        android:layout_below="@id/menu_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</RelativeLayout>
