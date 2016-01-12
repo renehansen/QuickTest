@@ -19,7 +19,6 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.query.Query;
-import com.example.rhansen.logic.presenters.NumMatchesListener;
 import com.example.rhansen.logic.presenters.PresenterManager;
 import com.example.rhansen.logic.presenters.SearchPresenter;
 import com.example.vehicle.VehicleType;
@@ -172,6 +171,7 @@ public class QueryBuilderFragment extends Fragment implements AdapterView.OnItem
         }
     }
 
+    //Localization example:
     private String[] createQueryChoices() {
         String[] queryChoices = new String[QueryChoice.values().length];
         queryChoices[QueryChoice.VEHICLE_TYPE.getIntValue()] = getString(R.string.vehicle_type);
@@ -227,8 +227,7 @@ public class QueryBuilderFragment extends Fragment implements AdapterView.OnItem
             case KM_DRIVEN:
                 break;
             default:
-//TODO RHA - PUT BACK IN:                throw new IllegalArgumentException("Unknown query choice for position " + position);
-
+                //TODO: throw exception when all options have been included
         }
     }
 

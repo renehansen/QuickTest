@@ -17,6 +17,16 @@ import java.util.concurrent.Executor;
  */
 public class SearchPresenter {
 
+    //region View callback interfaces
+    public interface NumMatchesListener extends ErrorListener {
+        void onNumberOfMatchingVehiclesFound(int numMatches);
+    }
+
+    public interface SearchResultListener extends ErrorListener {
+        void onSearchComplete(Iterable<Vehicle> vehicles);
+    }
+    //endregion
+
     static final int DEFAULT_PAGE = 0;
     static final int DEFAULT_PAGE_SIZE = 10;
     static final SearchCriteria DEFAULT_SEARCH_CRITERIA  = SearchCriteria.MAKE_MODEL_ASC;
@@ -33,6 +43,8 @@ public class SearchPresenter {
         this.searchService = searchService;
         this.metadataService = metadataService;
 
+        //Important note - the ThreadExecutors are only included for demo purposes
+        //The async methods where they are used, should not be called from a UI thread, or else!!
         setSearchExecutor(new ThreadExecutor());
         setNumberOfMatchesExecutor(new ThreadExecutor());
     }
