@@ -19,6 +19,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.query.Query;
+import com.example.rhansen.logic.presenters.NumMatchesListener;
 import com.example.rhansen.logic.presenters.PresenterManager;
 import com.example.rhansen.logic.presenters.SearchPresenter;
 import com.example.vehicle.VehicleType;
@@ -38,10 +39,10 @@ import java.util.List;
  */
 public class QueryBuilderFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-//region Boilerplate Android goes here
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private static final String ARG_PARAM1 = "param1";
+    //region Android boilerplate code
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -197,8 +198,8 @@ private static final String ARG_PARAM1 = "param1";
     }
 
     private void doSearch() {
-        final String numResults = "Antal resultater: ";
-        searchButton.setText(numResults + searchPresenter.getNumberOfMatchingVehicles(searchQuery));
+        final String resultPrefix = "Antal resultater: ";
+        searchButton.setText(resultPrefix + searchPresenter.getNumberOfMatchingVehicles(searchQuery));
     }
 
     @Override
@@ -234,63 +235,63 @@ private static final String ARG_PARAM1 = "param1";
     private void showChoiceDialogForVehicleType() {
         final String[] categories = translate(searchPresenter.getAvailableTypes());
 
-        final AlertDialog.Builder categoryDialog= new AlertDialog.Builder(getActivity());
-        categoryDialog.setTitle(R.string.vehicle_type);
-        categoryDialog.setNegativeButton(R.string.fortryd, null);
-        categoryDialog.setSingleChoiceItems(categories, selectedCategoryIdx, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int position) {
-
-                selectedCategoryIdx = position;
-                updateDisplayValue(QueryChoice.VEHICLE_TYPE, categories[position]);
-                //TODO - lav query baseret på type
-                dialog.dismiss();
-            }
-        });
-        categoryDialog.show();
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.vehicle_type)
+                .setNegativeButton(R.string.fortryd, null)
+                .setSingleChoiceItems(categories, selectedCategoryIdx,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+                                selectedCategoryIdx = position;
+                                updateDisplayValue(QueryChoice.VEHICLE_TYPE, categories[position]);
+                                doSearch();
+                                dialog.dismiss();
+                            }
+                        }
+                ).show();
     }
 
     private void showChoiceDialogForMake() {
         final String[] availableMakes = toArray(searchPresenter.getAvailableMakes());
 
-        final AlertDialog.Builder makeDialog= new AlertDialog.Builder(getActivity());
-        makeDialog.setTitle(R.string.make);
-        makeDialog.setNegativeButton(R.string.fortryd, null);
-        makeDialog.setSingleChoiceItems(availableMakes, selectedMakeIdx, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int position) {
-                if (selectedMakeIdx != position) {
-                    searchQuery.setModel(MyOptional.<String>empty());
-                    clearDisplayValue(QueryChoice.MODEL);
-                }
-                searchQuery.setMake(MyOptional.of(availableMakes[position]));
-                selectedMakeIdx = position;
-                updateDisplayValue(QueryChoice.MAKE, availableMakes[position]);
-                doSearch();
-                dialog.dismiss();
-            }
-        });
-
-        makeDialog.show();
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.make)
+                .setNegativeButton(R.string.fortryd, null)
+                .setSingleChoiceItems(availableMakes, selectedMakeIdx,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int position) {
+                                if (selectedMakeIdx != position) {
+                                    searchQuery.setModel(MyOptional.<String>empty());
+                                    clearDisplayValue(QueryChoice.MODEL);
+                                }
+                                searchQuery.setMake(MyOptional.of(availableMakes[position]));
+                                selectedMakeIdx = position;
+                                updateDisplayValue(QueryChoice.MAKE, availableMakes[position]);
+                                doSearch();
+                                dialog.dismiss();
+                            }
+                        }
+                ).show();
     }
 
     private void showChoiceDialogForModel() {
         String currentMake = searchQuery.getMake().get();
         final String[] availableModels = toArray(searchPresenter.getAvailableModels(currentMake));
 
-        final AlertDialog.Builder modelDialog = new AlertDialog.Builder(getActivity());
-        modelDialog.setTitle(R.string.model);
-        modelDialog.setNegativeButton(R.string.fortryd, null);
-        modelDialog.setSingleChoiceItems(availableModels, selectedModelIdx, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int position) {
-                searchQuery.setModel(MyOptional.of(availableModels[position]));
-                selectedModelIdx = position;
-                updateDisplayValue(QueryChoice.MODEL, availableModels[position]);
-                doSearch();
-                dialog.dismiss();
-            }
-        });
-
-        modelDialog.show();
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.model)
+                .setNegativeButton(R.string.fortryd, null)
+                .setSingleChoiceItems(availableModels, selectedModelIdx,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int position) {
+                                searchQuery.setModel(MyOptional.of(availableModels[position]));
+                                selectedModelIdx = position;
+                                updateDisplayValue(QueryChoice.MODEL, availableModels[position]);
+                                doSearch();
+                                dialog.dismiss();
+                            }
+                        }
+                ).show();
     }
 
     private void showChoiceDialogForPrice() {
